@@ -52,6 +52,8 @@ namespace CandidateHubApi.Controllers
         public async Task<IActionResult> AddCandidatePost([FromBody] Candidate data)
         {
             var candidate= await dataContext.Candidates.Where(d=>d.Email==data.Email).FirstOrDefaultAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             if (candidate != null)
             {
